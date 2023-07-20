@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "RinTinTin";
 }
 
 <head>
@@ -53,8 +53,8 @@
                 <ul>
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#portfolio">Photos</a></li>
-                    <li><a href="#team">Team</a></li>
+                    @*<li><a href="#portfolio">Photos</a></li>*@
+                    @*<li><a href="#team">Team</a></li>*@
                     @* <li class="dropdown">
                     <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
@@ -95,50 +95,14 @@
 
                     <div class="d-flex justify-content-center justify-content-lg-start">
                         <a href="#main" class="btn-get-started">Get Started</a>
-                        <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                        <a href="https://www.youtube.com/watch?v=17JTBL5yqXA" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
                     </div>
                 </div>
                 <div class="col-lg-4 order-1 order-lg-2">
-                    <img src="assets/img/robotdog.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+                    <img src="assets/img/main.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
                 </div>
             </div>
         </div>
-        @* <div class="icon-boxes position-relative">
-        <div class="container position-relative">
-        <div class="row gy-4 mt-5">
-
-        <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="icon-box">
-        <div class="icon"><i class="bi bi-easel"></i></div>
-        <h4 class="title"><a href="" class="stretched-link">Lorem Ipsum</a></h4>
-        </div>
-        </div><!--End Icon Box -->
-
-        <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="icon-box">
-        <div class="icon"><i class="bi bi-gem"></i></div>
-        <h4 class="title"><a href="" class="stretched-link">Sed ut perspiciatis</a></h4>
-        </div>
-        </div><!--End Icon Box -->
-
-        <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="icon-box">
-        <div class="icon"><i class="bi bi-geo-alt"></i></div>
-        <h4 class="title"><a href="" class="stretched-link">Magni Dolores</a></h4>
-        </div>
-        </div><!--End Icon Box -->
-
-        <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
-        <div class="icon-box">
-        <div class="icon"><i class="bi bi-command"></i></div>
-        <h4 class="title"><a href="" class="stretched-link">Nemo Enim</a></h4>
-        </div>
-        </div><!--End Icon Box -->
-
-        </div>
-        </div>
-        </div>*@
-
 
 
     </section>
@@ -156,53 +120,297 @@
                     </div>
                     <div class="col-lg-6">
                         <p>
-                            RinTinTin is a robot dog that can move autonomously and can be moved manually by its owner.
+                            RinTinTin is a robot dog that can move autonomously and can be moved manually using the desktop application.
                             It is able to detect the obstacles around it and draw the map of its environment.
                             Another speciality of RinTinTin is image detection. It can detect the images that are introduced to it previously.
                         </p>
                     </div>
                 </div>
+                <div class="row gy-4">
+                    <h3> Application</h3>
+
+                    <p>
+                        We developed a GUI application with Qt. C++ is used during development. Application is ported to Windows, and POSIX Operating Systems. It is applicable on all POSIX compliant operating systems, and Windows. We only needed to change POSIX calls to win32 system calls in order to do that.
+                    </p>
+                    <div class="col-lg-6">
+                        <img src="assets/img/app1.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+                    </div><div class="col-lg-6">
+                        <img src="assets/img/app2.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+                    </div>
+                    <p>
+                        Application has 4 main functionalities:
+                    </p>
+                    <h4>Sending commands to Raspberry Pi:</h4>
+
+                    <p>
+                        Buttons on the left bottom of the window are for directing the robot and connecting to the server.
+                        There are 2 text fields for IP address and port. With connect button TCPClient connects to TCPServer on Raspberry Pi using IP address
+                        and port number entered by the user, with the Disconnect button TCPClient disconnects from TCPServer on Raspberry Pi.
+                        In order to give directions to robot, we use TLClient and send data to the
+                        TLCServer running on the Raspberry pi on the same network. Forward is for moving robot forward, back is
+                        for moving the robot back. Left is for rotating the robot to 90 degrees left and Right is for rotating the robot to 90 degrees right. Other Left and Right commands are for stepping, robot steps left without rotating.
+                        Close button cancels the autonomous movement on the path.
+                        Reset button resets the all map and autonomous movement.
+
+
+                    </p>
+
+                    <h4>Receiving Video From Robot's Camera:</h4>
+
+                    <p>
+                        There is a frame at the top left to display video camera footage. App uses an Object Detection Module in order to detect the specific object we determined.
+                        If the object is viewable on the robot's camera, it draws a rectangle around it on the image and displays it in the app.
+                        With that approach the user can understand if the object is detected by the app or not. We use Opencv with C++ in order to achieve this.
+                        We encode the frame at the server and send it through the socket to the app. App receives that data and encodes it to Opencv Mat called frame. Then, it displays that frame on the screen.
+                        Details for Object Detection will be provided at the Image Processing section.
+                    </p>
+
+                    <h4>Drawing Map:</h4>
+
+                    <p>
+                        You can view the mapping provided by the Raspberry Pi at the right on the screen. Red dots represent the obstacles detected by the robot.
+                        Blue dot represents the current position of the robot. Green dots are for the shortest path to reach target position. This map is updated with the movement of the robot. You can track the 2D environment of the robot from the app. It represents a greater map, but it is scaled to a smaller map in order to fit it to the screen, but all operations are done in an unscaled map. Scaled part affects only visualization.
+                        Details for Mapping will be provided at the Mapping section.
+                    </p>
+
+                    <h4>Drawing Path:</h4>
+
+                    <p>
+                        When a pixel of the map is clicked, the robot moves to the located place on the map, and it maps the place it traversed.
+                        This movement is determined with a path finding algorithm which is explained in detail on the autonomous section.
+                        Green path is drawn when a pixel is clicked and the robot moves on that path.
+                    </p>
+
+
+                </div>
 
                 <div class="row gy-4">
-                    <h3>Mapping</h3>
+                    <h3>Communication and Synchronization</h3>
                     <div class="col-lg-6">
-                        <p>Ut fugiat ut sunt quia veniam. Voluptate perferendis perspiciatis quod nisi et. Placeat debitis quia recusandae odit et consequatur voluptatem. Dignissimos pariatur consectetur fugiat voluptas ea.</p>
-                        <p>Temporibus nihil enim deserunt sed ea. Provident sit expedita aut cupiditate nihil vitae quo officia vel. Blanditiis eligendi possimus et in cum. Quidem eos ut sint rem veniam qui. Ut ut repellendus nobis tempore doloribus debitis explicabo similique sit. Accusantium sed ut omnis beatae neque deleniti repellendus.</p>
+                        <p>
+                            There are 3 threads on the raspberry side, those are for mapping, movement, and sending images.
+                            Image thread is working independently from the other two threads.
+                            Mapping and movement must be synchronized, because it shouldn’t map and move simultaneously for proper mapping.
+                            It should also map continuously if there is no movement.
+                            We used conditional variables, and mutex for the synchronization of these two threads.
+                        </p>
+                        <p>
+                            We provided communication through stream sockets.
+                            It is mostly needed between different devices. Different threads communicate through shared data structures when they are on the same device.
+                            The application is ported on Windows and POSIX, so some system calls are changed in order to work it on Windows.
+                        </p>
+                        <p>
+                            Mapping process on the Raspberry needed to send the distance result of each coordinate to the main machine. Message format is a simple string which consists of points for each index.
+                            It represents the mini-map of a robot scanned.
+                            Server part converts it to a string, and the client side parses the message.
+                        </p>
+                        <p>
+                            Command process on the Raspberry needs to get the respected command from the main device.
+                            It is a string which represents the command it gets, correct formats are “LEFT”, “RIGHT”, “FORWARD”, “BACK”. Again the raspberry process is the server, application is the client. After raspberry gets the command, there is a message for the purpose of giving feedback. Raspberry gets the command, performs the movement, and returns the “RECEIVED” message through socket.
+                            If this message is received from the application, the map is updated.
+                        </p>
+                        <p>
+                            Video process on the raspberry, records the video and continuously sends it to the application module.
+                            Message format is a serialized video frame, it is read and written with that format to the stream socket.
+                        </p>
                     </div>
-                    <div class="col-lg-4">
-                        <img src="assets/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
+
+                    <div class="col-lg-6">
+                        <img src="assets/img/Communication.jpg" class="img-fluid rounded-4 mb-4" alt="">
                     </div>
+
                 </div>
                 <div class="row gy-4">
-                    <h3>Autonomous</h3>
-                    <div class="col-lg-6">
-                        <p>Ut fugiat ut sunt quia veniam. Voluptate perferendis perspiciatis quod nisi et. Placeat debitis quia recusandae odit et consequatur voluptatem. Dignissimos pariatur consectetur fugiat voluptas ea.</p>
-                        <p>Temporibus nihil enim deserunt sed ea. Provident sit expedita aut cupiditate nihil vitae quo officia vel. Blanditiis eligendi possimus et in cum. Quidem eos ut sint rem veniam qui. Ut ut repellendus nobis tempore doloribus debitis explicabo similique sit. Accusantium sed ut omnis beatae neque deleniti repellendus.</p>
-                    </div>
+                    <h3>Mapping</h3>
+
+                    <p>
+                        We needed a scanner for mapping, then this scanner was requested from the hardware module.
+                        Hardware module’s solution is putting an ultrasonic sensor with a servo to the head of the robot to scan a half circle with radius 150 cm which is the maximum distance an ultrasonic sensor can measure in front of it.
+                    </p>
+                    <p>
+                        Ultrasonic sensor measures the distance of the objects in 5 angles.
+                        These angles are 0, 75, 90, 105, and 180. For each angle, ultrasonic makes 20 measurements.
+                        In this way, we eliminate the outliers which are called noises in our dataset. After that, we get the mean of the sum of our dataset and get the most proper result.
+                    </p>
+
+                    <p>
+                        Mapping thread on the raspberry, manages the servos and sends the coordinates of the obstacles which are detected by ultrasonic sensor scanning results.
+                        These points are paired as (x,y) and sent to the application.
+                        We managed the calculations for mapping with creating another thread on the application side.
+                        When the application gets these points, it converts those points into its internal data structure.
+                        This is what we call a “mini-map”.
+                        When each mini-map is gotten from the raspberry, it must be put into the map according to its position, and the angle with starting angle which is 0.
+                    </p>
+                    <p>
+                        Every time the robot moves or rotates, we will update the angle and position of the robot on the big map.
+                        Also mini-map position and angle is set according to the robot. In this way we create a general map of parkour.
+                    </p>
+                    <p>
+                        We use an algorithm in order to beautify our map.
+                        This algorithm helps to combine points continuously which leads to creating a better map, and makes the path finding algorithm’s job easier.
+                        Also we did not remove any removing operation in the big map to solidify obstacles positions.
+                    </p>
                     <div class="col-lg-4">
-                        <img src="assets/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
+                        <img src="assets/img/mapping1.png" class="img-fluid rounded-4 mb-4" alt="">
+                    </div> <div class="col-lg-4">
+                        <img src="assets/img/mapping2.png" class="img-fluid rounded-4 mb-4" alt="">
+                    </div> <div class="col-lg-4">
+                        <img src="assets/img/mapping3.png" class="img-fluid rounded-4 mb-4" alt="">
                     </div>
+
+                
                 </div>
                 <div class="row gy-4">
                     <h3>Image Processing</h3>
-                    <div class="col-lg-6">
-                        <div class="content ps-0 ps-lg-5">
 
-                            <ul>
-                                <li><i class="bi bi-check-circle-fill"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                                <li><i class="bi bi-check-circle-fill"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-                            </ul>
-                        </div>
+                    <p>
+                        We have implemented the image processing algorithm using the Haar cascade classifier in C++ language.
+                        We have trained our classifier with custom data that we have prepared.
+                        The training data consists of 1000+ negative images and 100 positive images and also we added basic shape detecting algorithm to detect objects such as triangle,square and rectangle by detecting contours as the utility of opencv library.
+                    </p>
+                    <h2>Training Process</h2>
+                    <p>
+                        Our positive image data set is for detecting a black swan and a white swan.
+                        All of these photos are taken from the Raspberry Pi camera for training the classifier depending on real usage situations.
+                        For training we needed to label every instance one by one to get exact result for object detection.
+                    </p>
+                    <div class="col-lg-4">
+                        <img src="assets/img/image_processing5.png" class="img-fluid rounded-4 mb-4" alt="">
                     </div>
                     <div class="col-lg-4">
-                        <div class="position-relative mt-4">
-                            <img src="assets/img/about-2.jpg" class="img-fluid rounded-4" alt="">
-                            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
-                        </div>
+                        <img src="assets/img/image_processing4.png" class="img-fluid rounded-4 mb-4" alt="">
+                    </div>
+                    <p>
+                        Our negative image data set of the parkour to train not detecting irrelevant objects.
+                    </p>
+
+                    <p>
+                        We have used these positive and negative images for training our classifier.
+                        We have used a graphical interface that takes these positive and negative images, and trains a cascade classifier model.
+                    </p>
+                    <div class="col-lg-6">
+                        <img src="assets/img/image_processing3.png" class="img-fluid rounded-4 mb-4" alt="">
+                    </div>
+                    <p>
+                        Result of our cascade classifier training is an XML file that is specially designed for our custom model.
+                    </p>
+                    <div class="col-lg-6">
+                        <img src="assets/img/train5.jpg" class="img-fluid rounded-4 mb-4" alt="">
                     </div>
 
+                    <h2>Using the Custom Trained Classifier Model</h2>
+
+                    <p>
+                        After the training of the classifier model, we have created an XML file of the model.
+                        We have loaded this file to create a CascadeClassifier object in C++.
+                        After the loading of the classifier and receiving the video to our app, we used the detectMultiScale function of the CascadeClassifier for our classifier and created a vector of rectangles that marks the objects that have been found.
+                    </p>
+                    <div class="col-lg-6">
+                        <img src="assets/img/image_processing2.png" class="img-fluid rounded-4 mb-4" alt="">
+                    </div>
+
+                    <p>
+                        After all of these process, we can find our object and mark it successfully
+                    </p>
+                    <div class="col-lg-6">
+                        <img src="assets/img/image_processing1.png" class="img-fluid rounded-4 mb-4" alt="">
+                    </div>
                 </div>
+
+
+                <div class="row gy-4">
+                    <h3>Hardware</h3>
+                    <div class="col-lg-6">
+                        <p>
+                            In this phase of the project, we preserve most of the parts in the robot generally.
+                            Building upon its foundation, we integrated a new servo and a new ultrasonic sensor to the hardware with the request of the mapping module.
+                            The newly integrated servo has been securely attached to the robot’s body, enabling it to execute swift and seamless rotations spanning a full 180 degrees.
+                            The newly integrated ultrasonic sensor is attached to this new servo with some components. In this way, ultrasonic sensor can scan obstacles in a half circle area with a diameter of 150cm.
+
+                        </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="assets/img/robot.jpg" class="img-fluid rounded-4 mb-4" alt="">
+                    </div>
+                </div>
+
+                <div class="row gy-4">
+                    <h3>Autonomous Movement</h3>
+                </div>
+                <div class="row gy-4">
+
+                    <h4>Problem Definition:</h4>
+
+                    <p>
+                        Our autonomous robot is designed to navigate towards a specific target on a map.
+                        The map is represented by a network of nodes, where each node represents a specific location.
+                        The robot explores the nodes on the map using the A* algorithm, aiming to find the shortest path.
+                    </p>
+
+                    <h4>The A* Algorithm:</h4>
+
+                    <p>
+                        The A* algorithm is employed to discover the shortest path by traversing the nodes on the map.
+                        The algorithm prioritizes the nodes based on their distance and estimated distance to the target.
+                        As a result, the robot advances towards the node that is closest to the target.
+                        We are not using A* algorithm directly, because this algorithm is not designed with directions.
+                        It must be implemented with respect to directions, and in order to make proper mapping, It must rotate, without stepping.
+                        If it rotates, and continues forward, the map will be better.
+                        Because of this we updated the A* algorithm with the knowledge of robots degree.
+                        In normal A* algorithm, it checks directions in the same order all the time.
+                        But to achieve our purpose, we changed the algorithm by checking the forward of the robot first according to its direction.
+                        When the algorithm produces a left or right step, the robot rotates according to its degree and performs the proper command.
+                        If it needs to go back, It rotates 180 degrees.
+                        Also this algorithm works well on simulation, but when the modules are integrated, it is changed a lot.
+                        Because 1 pixel on the map is not enough to rotate the robot. It rotates early for proper rotation.
+                    </p>
+
+                    <div class="col-lg-4">
+                        <h4>Pathfinding:</h4>
+
+                        <p>
+                            The robot identifies the target node based on the user's input and utilizes the A* algorithm to determine the shortest path.
+                            The algorithm explores the nodes from the starting node to the target node and calculates the shortest path.
+                            This process enables the robot to efficiently identify the most optimal route by reducing the distance to the target.
+                        </p>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-4">
+                        <img src="assets/img/Autonomious.jpg" class="img-fluid rounded-4 mb-4" alt="">
+                    </div>
+
+
+                    <h4>Recalculation Based on New Data:</h4>
+
+                    <p>
+                        After each click or encountering an obstacle, the robot recalculates its path based on new data.
+                        This data may include the status of obstacles or unobstructed areas on the map.
+                        Using the A* algorithm, the robot determines a new path based on the updated data and continues its movement accordingly.
+                    </p>
+                    <h4>Robot Movements:</h4>
+
+                    <p>
+                        The A* algorithm determines the robot's next movement at each step.
+                        The robot executes the designated movement and then recalculates its path based on the updated data.
+                        This process enables the robot to progress towards the target efficiently.
+                        Algorithm movement patterns did not work well when modules are integrated, in order to solve that we add additional algorithms to processes that produce commands which are also designed with the knowledge of mapping, and rotation.
+                        After making those changes, integration is completed.
+                    </p>
+                    <h4>
+
+                        Conclusion:
+                    </h4>
+
+                    <p>
+                        Our autonomous robot aims to employs the A* algorithm to identify the shortest path towards the target on the map.
+                        After each click or encountering an obstacle, the robot recalculates its path based on new data, allowing it to navigate autonomously and reach the target in the shortest possible time.
+                    </p>
+
+
+                </div>
+
+
+
 
             </div>
         </section><!-- End About Us Section -->
@@ -297,224 +505,224 @@
         </div>
         </section><!-- End Our Services Section -->*@
         <!-- ======= Portfolio Section ======= -->
-        <section id="portfolio" class="portfolio sections-bg">
-            <div class="container" data-aos="fade-up">
+        @* <section id="portfolio" class="portfolio sections-bg">
+        <div class="container" data-aos="fade-up">
 
-                <div class="section-header">
-                    <h2>Photos</h2>
-                </div>
+        <div class="section-header">
+        <h2>Photos</h2>
+        </div>
 
-                <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
+        <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
 
-                    <div>
-                        <ul class="portfolio-flters">
-                            <li data-filter="*" class="filter-active">All</li>
-                            <li data-filter=".filter-app">Image Processing</li>
-                            <li data-filter=".filter-product">Autonomous</li>
-                            <li data-filter=".filter-branding">Mapping</li>
-                            <li data-filter=".filter-books">Hardware</li>
-                        </ul><!-- End Portfolio Filters -->
-                    </div>
+        <div>
+        <ul class="portfolio-flters">
+        <li data-filter="*" class="filter-active">All</li>
+        <li data-filter=".filter-app">Image Processing</li>
+        <li data-filter=".filter-product">Autonomous</li>
+        <li data-filter=".filter-branding">Mapping</li>
+        <li data-filter=".filter-books">Hardware</li>
+        </ul><!-- End Portfolio Filters -->
+        </div>
 
-                    <div class="row gy-4 portfolio-container">
+        <div class="row gy-4 portfolio-container">
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/app-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">App 1</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/app-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">App 1</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-product">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/product-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Product 1</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-product">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/product-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Product 1</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/branding-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Branding 1</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/branding-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Branding 1</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-books">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/books-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Books 1</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-books">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/books-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Books 1</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/app-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">App 2</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/app-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">App 2</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-product">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/product-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Product 2</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-product">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/product-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Product 2</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/branding-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Branding 2</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/branding-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Branding 2</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-books">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/books-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Books 2</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-books">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/books-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Books 2</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/app-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">App 3</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/app-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">App 3</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-product">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/product-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Product 3</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-product">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/product-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Product 3</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/branding-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Branding 3</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/branding-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Branding 3</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-books">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/portfolio/books-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Books 3</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div><!-- End Portfolio Item -->
+        <div class="col-xl-4 col-md-6 portfolio-item filter-books">
+        <div class="portfolio-wrap">
+        <a href="assets/img/portfolio/books-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt=""></a>
+        <div class="portfolio-info">
+        <h4><a href="portfolio-details.html" title="More Details">Books 3</a></h4>
+        <p>Lorem ipsum, dolor sit amet consectetur</p>
+        </div>
+        </div>
+        </div><!-- End Portfolio Item -->
 
-                    </div><!-- End Portfolio Container -->
+        </div><!-- End Portfolio Container -->
 
-                </div>
+        </div>
 
-            </div>
+        </div>
         </section><!-- End Portfolio Section -->
         <!-- ======= Our Team Section ======= -->
         <section id="team" class="team">
-            <div class="container" data-aos="fade-up">
+        <div class="container" data-aos="fade-up">
 
-                <div class="section-header">
-                    <h2>Our Team</h2>
-                    <p>Nulla dolorum nulla nesciunt rerum facere sed ut inventore quam porro nihil id ratione ea sunt quis dolorem dolore earum</p>
-                </div>
+        <div class="section-header">
+        <h2>Our Team</h2>
+        <p>Nulla dolorum nulla nesciunt rerum facere sed ut inventore quam porro nihil id ratione ea sunt quis dolorem dolore earum</p>
+        </div>
 
-                <div class="row gy-4">
+        <div class="row gy-4">
 
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-                        <div class="member">
-                            <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
-                            <h4>Walter White</h4>
-                            <span>Web Development</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div><!-- End Team Member -->
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+        <div class="member">
+        <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+        <h4>Walter White</h4>
+        <span>Web Development</span>
+        <div class="social">
+        <a href=""><i class="bi bi-twitter"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+        </div>
+        </div>
+        </div><!-- End Team Member -->
 
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-                        <div class="member">
-                            <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
-                            <h4>Sarah Jhinson</h4>
-                            <span>Marketing</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div><!-- End Team Member -->
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+        <div class="member">
+        <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
+        <h4>Sarah Jhinson</h4>
+        <span>Marketing</span>
+        <div class="social">
+        <a href=""><i class="bi bi-twitter"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+        </div>
+        </div>
+        </div><!-- End Team Member -->
 
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-                        <div class="member">
-                            <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
-                            <h4>William Anderson</h4>
-                            <span>Content</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div><!-- End Team Member -->
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
+        <div class="member">
+        <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+        <h4>William Anderson</h4>
+        <span>Content</span>
+        <div class="social">
+        <a href=""><i class="bi bi-twitter"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+        </div>
+        </div>
+        </div><!-- End Team Member -->
 
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-                        <div class="member">
-                            <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
-                            <h4>Amanda Jepson</h4>
-                            <span>Accountant</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div><!-- End Team Member -->
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
+        <div class="member">
+        <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
+        <h4>Amanda Jepson</h4>
+        <span>Accountant</span>
+        <div class="social">
+        <a href=""><i class="bi bi-twitter"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+        </div>
+        </div>
+        </div><!-- End Team Member -->
 
-                </div>
+        </div>
 
-            </div>
-        </section><!-- End Our Team Section -->
+        </div>
+        </section><!-- End Our Team Section -->*@
         <!-- ======= Pricing Section ======= -->
 
 
